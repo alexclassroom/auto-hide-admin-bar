@@ -44,11 +44,15 @@ function plugin_get_version() {
 	return $plugin_version;
 }
 
-// Load CSS files 
+/* Load CSS files */
 function ahab_admin_styles() {
-	wp_enqueue_style('admin-styles', plugin_dir_url(__FILE__) . 'css/ahab.css');
+	// only load if a user is logged in
+	if (is_user_logged_in()) {
+		wp_enqueue_style('admin-styles', plugin_dir_url(__FILE__) . 'css/ahab.css');
+	}
 }
 add_action('admin_enqueue_scripts', 'ahab_admin_styles');
+add_action('wp_enqueue_scripts', 'ahab_admin_styles');
 
 /**
  * Include options page for admin area
@@ -137,6 +141,31 @@ function is_ahab_disabled() {
 
 	return $ahab_disabled;
 }
+
+/* Add Toggle to admin bar */
+add_action('admin_bar_menu', 'ahab_admin_bar_item', 0);
+function ahab_admin_bar_item(WP_Admin_Bar $admin_bar) {
+	$options = get_option('ahab_plugin_options');
+	
+	if ((!empty($options['toggle'])) && (2 == $options['toggle'])) {
+
+
+		$admin_bar->add_menu(array(
+			'id'    => 'menu-id',
+			'parent' => null,
+			'group'  => null,
+			'title' => '<div class="ahab"><label class="switch">
+		<input type="checkbox" checked>
+		<span class="slider round"></span>
+	  </label></div>',
+			'href'  => '',
+			'meta' => [
+				'title' => __('Toggle auto-hide of Admin bar', 'auto-hide-admin-bar'), //This title will show on hover
+			]
+		));
+	}
+}
+
 
 /**
  * The main function. Build JS code and output it.

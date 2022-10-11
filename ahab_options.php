@@ -109,16 +109,16 @@ function ahab_plugin_options_init() {
 		'auto-hide-admin-bar'
 	), 'ahab_plugin_section_visual_text', 'ahab_plugin');
 	add_settings_field(
-		'ahab_plugin_option_arrow',
-		__('Show or hide an arrow:', 'auto-hide-admin-bar'),
-		'ahab_plugin_setting_arrow',
+		'ahab_plugin_toggle_button',
+		__('Show or hide the toggle button:', 'auto-hide-admin-bar'),
+		'ahab_plugin_setting_toggle',
 		'ahab_plugin',
 		'ahab_plugin_section_visual'
 	);
 	add_settings_field(
-		'ahab_plugin_toggle_button',
-		__('Show or hide the toggle button:', 'auto-hide-admin-bar'),
-		'ahab_plugin_setting_toggle',
+		'ahab_plugin_option_arrow',
+		__('Show or hide an arrow:', 'auto-hide-admin-bar'),
+		'ahab_plugin_setting_arrow',
 		'ahab_plugin',
 		'ahab_plugin_section_visual'
 	);
@@ -562,25 +562,7 @@ function ahab_plugin_setting_keyboard_shortcut() {
 
 <?php
 }
-add_action('admin_bar_menu', 'admin_bar_item', 500);
-function admin_bar_item(WP_Admin_Bar $admin_bar) {
-	if (!current_user_can('manage_options')) {
-		return;
-	}
-	$admin_bar->add_menu(array(
-		'id'    => 'menu-id',
-		'parent' => null,
-		'group'  => null,
-		'title' => '<div class="ahab"><label class="switch">
-		<input type="checkbox" checked>
-		<span class="slider round"></span>
-	  </label></div>', 
-		'href'  => '',
-		'meta' => [
-			'title' => __('Menu Title', 'textdomain'), //This title will show on hover
-		]
-	));
-}
+
 /**
  * Validate the user input
  *

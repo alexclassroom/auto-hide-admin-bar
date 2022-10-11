@@ -5,6 +5,11 @@
     height: 24px;
 }
 
+.admin-bar #wpadminbar .ahab .switch {
+    top: 6px;
+}
+
+
 #wpadminbar .ahab .switch input {
     opacity: 0;
     width: 0;

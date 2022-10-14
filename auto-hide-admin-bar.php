@@ -4,7 +4,7 @@ Plugin Name: Auto Hide Admin Bar
 Plugin URI: https://nostromo.nl/wordpress-plugins/auto-hide-admin-bar
 Description: Automatically hides the Toolbar. Will show the Toolbar when hovering over the top of the site.
 Author: Marcel Bootsman
-Version: 1.6
+Version: 1.6.1
 Author URI: https://nostromo.nl
 Text Domain: auto-hide-admin-bar
 Domain Path: /languages/

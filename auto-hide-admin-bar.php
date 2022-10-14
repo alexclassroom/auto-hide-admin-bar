@@ -22,7 +22,7 @@ $keyboard_shortcut_fields = array(
 	'char'  => ''
 );
 
-/* Define some default numbers */
+/* Define some default values */
 define('DEFAULT_SPEED', 200);
 define('DEFAULT_DELAY', 1500);
 define('DEFAULT_INTERVAL', 100);
@@ -51,7 +51,6 @@ function ahab_admin_styles() {
 		wp_enqueue_style('admin-styles', plugin_dir_url(__FILE__) . 'css/ahab.css');
 	}
 }
-add_action('admin_enqueue_scripts', 'ahab_admin_styles');
 add_action('wp_enqueue_scripts', 'ahab_admin_styles');
 
 /**
@@ -146,23 +145,25 @@ function is_ahab_disabled() {
 add_action('admin_bar_menu', 'ahab_admin_bar_item', 0);
 function ahab_admin_bar_item(WP_Admin_Bar $admin_bar) {
 	$options = get_option('ahab_plugin_options');
-	
-	if ((!empty($options['toggle'])) && (2 == $options['toggle'])) {
+
+	if (!is_admin()) {
+		if ((!empty($options['toggle'])) && (2 == $options['toggle'])) {
 
 
-		$admin_bar->add_menu(array(
-			'id'    => 'menu-id',
-			'parent' => null,
-			'group'  => null,
-			'title' => '<div class="ahab"><label class="switch">
-		<input type="checkbox" checked>
+			$admin_bar->add_menu(array(
+				'id'    => 'ahab-toggle',
+				'parent' => null,
+				'group'  => null,
+				'title' => '<div class="ahab"><label class="switch">
+		<input id="toggle-checkbox" type="checkbox">
 		<span class="slider round"></span>
 	  </label></div>',
-			'href'  => '',
-			'meta' => [
-				'title' => __('Toggle auto-hide of Admin bar', 'auto-hide-admin-bar'), //This title will show on hover
-			]
-		));
+				'href'  => '',
+				'meta' => [
+					'title' => __('Toggle lock for the Admin bar', 'auto-hide-admin-bar'), //This title will show on hover
+				]
+			));
+		}
 	}
 }
 
@@ -240,7 +241,6 @@ function auto_hide_admin_bar() {
 		$theme_name = (wp_get_theme()->Template);
 	};
 ?>
-
 	<script type='text/javascript'>
 		// For passing the variables to the ahab.js file
 		ahab = {
@@ -319,5 +319,4 @@ add_action('plugins_loaded', 'auto_hide_admin_bar_load_textdomain');
 function auto_hide_admin_bar_load_textdomain() {
 	load_plugin_textdomain('auto-hide-admin-bar', false, basename(dirname(__FILE__)) . '/languages/');
 }
-
 ?>

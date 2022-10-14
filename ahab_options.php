@@ -230,7 +230,7 @@ function ahab_plugin_section_interval_text() {
  */
 function ahab_plugin_section_visual_text() {
 ?>
-	<p> <?php _e('Use this set visual options.', 'auto-hide-admin-bar'); ?> </p>
+	<p> <?php _e('Use this to set visual options, show an arrow to trigger the showing/hiding of the Toolbar, or add a toggle to temporarily stop the Toolbar from hiding.', 'auto-hide-admin-bar'); ?> </p>
 <?php
 }
 
@@ -303,9 +303,7 @@ function ahab_plugin_setting_speed() {
 	}
 
 ?>
-
 	<input id='ahab_setting_speed' name='ahab_plugin_options[speed]' type='text' value='<?php echo $ahab_speed; ?>' />
-
 <?php
 }
 
@@ -407,11 +405,11 @@ function ahab_plugin_setting_toggle() {
 ?>
 	<p>
 		<input type="radio" id="ahab_setting_toggle" name="ahab_plugin_options[toggle]" value="1" <?php checked(1, $options_toggle, true); ?> />
-		<label for="ahab_setting_toggle"><?php _e('Hide toggle button', 'auto-hide-admin-bar'); ?></label>
+		<label for="ahab_setting_toggle"><?php _e('Hide toggle button for locking the admin bar', 'auto-hide-admin-bar'); ?></label>
 	</p>
 	<p>
 		<input type="radio" id="ahab_setting_toggle" name="ahab_plugin_options[toggle]" value="2" <?php checked(2, $options_toggle, true); ?> />
-		<label for="ahab_setting_toggle"><?php _e('Show toggle button', 'auto-hide-admin-bar'); ?></label>
+		<label for="ahab_setting_toggle"><?php _e('Show toggle button for locking the admin bar', 'auto-hide-admin-bar'); ?></label>
 	</p>
 <?php
 }
@@ -511,11 +509,8 @@ function ahab_plugin_setting_user_roles() {
 			<input type="checkbox" id="ahab_setting_disable_user_roles_<?php echo $role_key; ?>" name="ahab_plugin_options[disabled_user_roles_<?php echo $role_key; ?>]" value="<?php echo $role_key; ?>" <?php checked($role_key, $ahab_disabled_user_role, true); ?> />
 			<label for="ahab_setting_disable_user_roles_<?php echo $role_key; ?>"><?php echo translate_user_role($role['name']); ?></label>
 		</p>
-	<?php
+		<?php
 	}
-	?>
-
-	<?php
 }
 
 /**
@@ -541,7 +536,7 @@ function ahab_plugin_setting_keyboard_shortcut() {
 			$ahab_keyboard_shortcut_key = '';
 		}
 		if ('char' != $key) {
-	?>
+		?>
 			<p>
 				<input type="checkbox" id="ahab_setting_keyboard_shortcut_<?php echo $key; ?>" name="ahab_plugin_options[keyboard_shortcut_<?php echo $key; ?>]" value="<?php echo $key; ?>" <?php checked($key, $ahab_keyboard_shortcut_key, true); ?> />
 				<label for="ahab_setting_keyboard_shortcut_<?php echo $key; ?>"><?php echo $key; ?></label>
@@ -558,8 +553,6 @@ function ahab_plugin_setting_keyboard_shortcut() {
 		<input size="4" type="text" maxlength="1" id="ahab_setting_keyboard_shortcut_char" name="ahab_plugin_options[keyboard_shortcut_char]" value="<?php echo $ahab_keyboard_shortcut_character; ?>" />
 
 	</p>
-
-
 <?php
 }
 
@@ -587,5 +580,4 @@ function ahab_validate_input($input) {
 	// Return the array processing any additional functions filtered by this action
 	return apply_filters('ahab_validate_input', $output, $input);
 }
-
 ?>

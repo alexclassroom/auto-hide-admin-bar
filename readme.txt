@@ -12,7 +12,9 @@ This plugin adds an auto-hide feature to the WordPress Admin Bar or Toolbar.
 
 Auto Hide Admin Bar makes the WordPress Toolbar disappear - and reappear when hovering the mouse pointer over the top of the browser window.
 You end up with a clean view of your site, and keep having access to the WordPress Toolbar.
-If you have any comments or questions, please use the support forum: http://wordpress.org/support/plugin/auto-hide-admin-bar
+If you have any comments or questions, please use the [support forum](http://wordpress.org/support/plugin/auto-hide-admin-bar).
+
+Want to contribute? Check out the Github repository [here](https://github.com/mbootsman/auto-hide-admin-bar).
 
 == Installation ==
 
@@ -23,14 +25,16 @@ If you have any comments or questions, please use the support forum: http://word
 == Frequently Asked Questions ==
 
 = Can this plugin be translated in my own language? =
-Sure, just go to https://translate.wordpress.org/projects/wp-plugins/auto-hide-admin-bar and translate this plugin in your own language.
+Sure, just go [here](https://translate.wordpress.org/projects/wp-plugins/auto-hide-admin-bar) and translate this plugin in your own language.
 
 == Screenshots ==
 How do we make screenshots of things that are hidden? :)
 
 == Changelog ==
 = 1.6 =
-* Added toggle switch in the admin bar to enable/disable auto-hiding of the admin bar
+* Added toggle switch in the admin bar to (temporarely) enable/disable auto-hiding of the admin bar without going to the settings page.
+* Fixed links in readme.txt.
+* Added GitHub repository link to readme.txt.
 
 = 1.5 =
 * Changed behaviour of arrow. It now needs to be clicked to show/hide the admin bar, and has been given a little design love.
@@ -46,13 +50,13 @@ How do we make screenshots of things that are hidden? :)
 * Removed Admin settings, since they were not used.
 
 = 1.4.1 =
-* Fixed checking for existing options values. [Props: hanfox](https://wordpress.org/support/topic/updating-to-v1-4-throws-errors-due-to-new-empty-options/)
+* Fixed checking for existing options values. [Props: hanfox](https://wordpress.org/support/topic/updating-to-v1-4-throws-errors-due-to-new-empty-options/).
 
 = 1.4 =
-* Added option to show an arrow when the toolbar is hidden. [Link to suggestion](https://wordpress.org/support/topic/show-small-arrow-when-hidden/)
+* Added option to show an arrow when the toolbar is hidden. [Link to suggestion](https://wordpress.org/support/topic/show-small-arrow-when-hidden/).
 
 = 1.3.1 =
-* Fixed SSL mixed content issue. Props: @steveec-1, topic: https://wordpress.org/support/topic/ssl-mixed-content-9/
+* Fixed SSL mixed content issue. Props: @steveec-1, [topic](https://wordpress.org/support/topic/ssl-mixed-content-9/).
 
 = 1.3 =
 * Fixed issue when using Beaver Builder 2.x+.
@@ -72,17 +76,17 @@ How do we make screenshots of things that are hidden? :)
 = 1.2 =
 * Added setting to disable the plugin for any available user role.
 * Added keyboard shortcut setting. Now you can show and hide the Toolbar with a keyboard shortcut! Thanks for the feature request photoMaldives (https://wordpress.org/support/topic/very-useful-works-exactly-as-expected/).
-* Added donate link as plugin actions. Want to donate? Go here: https://nostromo.nl/wordpress-plugins/auto-hide-admin-bar/
+* Added donate link as plugin actions. Want to donate? Go [here](https://nostromo.nl/wordpress-plugins/auto-hide-admin-bar/).
 * Added donate link in plugin settings.
 * Moved version number in plugin settings screen to bottom.
 
 = 1.1 =
 * Moved inline Javascript code to external file and have it registered and enqueued.
-  Thanks iCounsellorUK fro reporting this: https://wordpress.org/support/topic/assumes-jquery-loads-first/
+  Thanks iCounsellorUK fro reporting [this](https://wordpress.org/support/topic/assumes-jquery-loads-first/).
 
 = 1.0.3 =
 * Fixed logged in detection, replaced test for class .logged-in to test for #wpadminbar, which is universal and dependent on theme developers.
-  Thanks wloske for this suggestion - https://wordpress.org/support/topic/not-working-for-me-140
+  Thanks wloske for this [suggestion](https://wordpress.org/support/topic/not-working-for-me-140).
 
 = 1.0.2 =
 * Added load_textdomain() function.
@@ -94,11 +98,11 @@ How do we make screenshots of things that are hidden? :)
 * Internationalized the plugin, which was a good reason to increase version to 1.0 :)
 
 = 0.9.2 =
-* Fixed 'ReferenceError: adminBarIn is not defined' bug
-* Updated hoverIntent jQuery plugin to version 1.8.1
+* Fixed 'ReferenceError: adminBarIn is not defined' bug.
+* Updated hoverIntent jQuery plugin to version 1.8.1.
 
 = 0.9.1 =
-* Code will not execute when in WordPress customizer view, to prevent top of page cut-off
+* Code will not execute when in WordPress customizer view, to prevent top of page cut-off.
 
 = 0.9 =
 * Changed description.

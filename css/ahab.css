@@ -1,3 +1,20 @@
+#wpadminbar #arrow span.dashicons {
+    font-family: "dashicons";
+    font-size: 20px;
+    line-height: 1;
+}
+
+#wpadminbar #arrow {
+    cursor: pointer;
+    padding: 4px;
+    position: fixed;
+    top: 0;
+    height: 20px;
+    z-index: 99999;
+    background-color: #1d2327;
+}
+
+.wp-admin #wpadminbar .ahab .switch,
 #wpadminbar .ahab .switch {
     position: relative;
     display: inline-block;
@@ -5,10 +22,9 @@
     height: 24px;
 }
 
-.admin-bar #wpadminbar .ahab .switch {
+.logged-in.admin-bar #wpadminbar .ahab .switch {
     top: 6px;
 }
-
 
 #wpadminbar .ahab .switch input {
     opacity: 0;
@@ -24,8 +40,8 @@
     right: 0;
     bottom: 4px;
     background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 1.4s;
+    transition: 1.4s;
 }
 
 #wpadminbar .ahab .slider:before {
@@ -36,6 +52,19 @@
     left: 4px;
     bottom: 2px;
     background-color: white;
+    color: white;
+    line-height: 0;
+    -webkit-transition: .4s;
+    transition: .4s;
+
+}
+
+#wpadminbar .ahab input:checked+.slider:before {
+    content: "\f160";
+    font-family: "dashicons";
+    color: #2196F3;
+    line-height: 16px;
+    text-align: center;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -61,4 +90,15 @@
 
 #wpadminbar .ahab .slider.round:before {
     border-radius: 50%;
+}
+
+@media screen and (max-width: 782px) {
+    #wp-toolbar>ul>li#wp-admin-bar-ahab-toggle {
+        display: block;
+    }
+
+    .logged-in.admin-bar #wpadminbar .ahab .switch {
+        top: 13px;
+        left: 3px;
+    }
 }

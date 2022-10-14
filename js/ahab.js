@@ -1,5 +1,57 @@
 jQuery(document).ready(function ($) {
 
+	/** Generic functions **/
+
+	// function to set a cookie
+	function setCookie(cName, cValue, expDays) {
+		let date = new Date();
+		date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+		const expires = "expires=" + date.toUTCString();
+		document.cookie = cName + "=" + cValue + "; " + expires + "; SameSite=Strict; path=/";
+	}
+
+	// function to get a cookie - you want one too?
+	function getCookie(cName) {
+		const name = cName + "=";
+		const cDecoded = decodeURIComponent(document.cookie); //to be careful
+		const cArr = cDecoded.split('; ');
+		let res;
+		cArr.forEach(val => {
+			if (val.indexOf(name) === 0) res = val.substring(name.length);
+		})
+		return res;
+	}
+
+	// function to add arrow to DOM
+	function addArrow(pos, radius) {
+		return '<div style="' + pos + radius + '" id="arrow"><span style="color:#a7aaad;" class="dashicons dashicons-arrow-down-alt"></span></div>';
+	}
+
+	// return arrow position styles
+	function arrowPosStyle(arrowPos) {
+		if (arrowPos) {
+			if ('left' == arrowPos) {
+				return 'left: 0;';
+			}
+			if ('right' == arrowPos) {
+				return 'right: 0;';
+			}
+		}
+	}
+
+	// return arrow border radius style
+	function arrowBorderRadiusStyle(arrowPos) {
+
+		if (arrowPos) {
+			if ('left' == arrowPos) {
+				return 'border-radius: 0 0 4px 0;';
+			}
+			if ('right' == arrowPos) {
+				return 'border-radius: 0 0 0 4px;';
+			}
+		}
+	}
+
 	function ahadMain() {
 
 		// doNothing function is for enabling hoverIntent to work with two layers.
@@ -7,31 +59,34 @@ jQuery(document).ready(function ($) {
 		}
 
 		// Show the Admin Bar
-		function adminBarIn() {
-			$('#wpadminbar').animate({'top': '0px'}, ahab['ahab_anim_speed']);
-			$('body').animate({'margin-top': '0px'}, ahab['ahab_anim_speed']);
-			$('body').animate({'background-position-y': '0px'}, ahab['ahab_anim_speed']);
+		function adminBarShow() {
+			$('#wpadminbar').animate({ 'top': '0px' }, ahab['ahab_anim_speed']);
+			$('body').animate({ 'margin-top': '0px' }, ahab['ahab_anim_speed']);
+			$('body').animate({ 'background-position-y': '0px' }, ahab['ahab_anim_speed']);
 			if ('twentyfourteen' == themeName) {
-				$('.admin-bar.masthead-fixed .site-header').animate({'top': '32px'}, ahab['ahab_anim_speed'])
+				$('.admin-bar.masthead-fixed .site-header').animate({ 'top': '32px' }, ahab['ahab_anim_speed'])
 			}
 		}
 
 		// Hide the Admin Bar
-		function adminBarOut() {
-			if (windowSize > 782) {
-				$('#wpadminbar').animate({'top': '-32px'}, ahab['ahab_anim_speed']);
-				$('body').animate({'margin-top': '-32px'}, ahab['ahab_anim_speed']);
-				$('body').animate({'background-position-y': '-32px'}, ahab['ahab_anim_speed']);
-				if ('twentyfourteen' == themeName) {
-					$('.admin-bar.masthead-fixed .site-header').animate({'top': '0px'}, ahab['ahab_anim_speed'])
-				}
-			} else {
-				if (1 == ahabMobile) {
-					$('#wpadminbar').animate({'top': '-46px'}, ahab['ahab_anim_speed']);
-					$('body').animate({'margin-top': '-46px'}, ahab['ahab_anim_speed']);
-					$('body').animate({'background-position-y': '-46px'}, ahab['ahab_anim_speed']);
+		function adminBarHide() {
+			// do not hide if toggle cookie has t a certain value
+			if (getCookie('toggle') != "locked") {
+				if (windowSize > 782) {
+					$('#wpadminbar').animate({ 'top': '-32px' }, ahab['ahab_anim_speed']);
+					$('body').animate({ 'margin-top': '-32px' }, ahab['ahab_anim_speed']);
+					$('body').animate({ 'background-position-y': '-32px' }, ahab['ahab_anim_speed']);
 					if ('twentyfourteen' == themeName) {
-						$('.admin-bar.masthead-fixed .site-header').animate({'top': '-46px'}, ahab['ahab_anim_speed'])
+						$('.admin-bar.masthead-fixed .site-header').animate({ 'top': '0px' }, ahab['ahab_anim_speed'])
+					}
+				} else {
+					if (1 == ahabMobile) {
+						$('#wpadminbar').animate({ 'top': '-46px' }, ahab['ahab_anim_speed']);
+						$('body').animate({ 'margin-top': '-46px' }, ahab['ahab_anim_speed']);
+						$('body').animate({ 'background-position-y': '-46px' }, ahab['ahab_anim_speed']);
+						if ('twentyfourteen' == themeName) {
+							$('.admin-bar.masthead-fixed .site-header').animate({ 'top': '-46px' }, ahab['ahab_anim_speed'])
+						}
 					}
 				}
 			}
@@ -40,20 +95,16 @@ jQuery(document).ready(function ($) {
 		// Arrow CSS when admin bar visible
 		function arrowCSSAdminBarIn() {
 			var ahabArrowPos = ahab['ahab_arrow_pos'];
-
-			$('#arrow').css('top', '30px');
-			$('#arrow').css('z-index', '99998');
-			$('#arrow').css('transform', 'rotate(180deg)');
-			$('#arrow').css('background', 'rotate(180deg)');
-			if (ahabArrowPos) {
-				if ('left' == ahabArrowPos) {
-					$('#arrow').css('border-radius', '4px 0 0 0');
-				}
-				if ('right' == ahabArrowPos) {
-					ArrowPosStyle = 'right: 0;';
-					$('#arrow').css('border-radius', '0 4px 0 0');
-				}
+			if (windowSize > 782) {
+				$('#arrow').css('top', '30px');
 			}
+			else {
+				$('#arrow').css('top', '46px');
+			}
+			$('#arrow').css('z-index', '99998');
+			$('#arrow span').css('transform', 'rotate(180deg)');
+			$('#arrow').css(arrowBorderRadiusStyle(ahabArrowPos));
+			$('#arrow').css(arrowPosStyle(ahabArrowPos));
 		}
 
 		// Arrow CSS when admin bar invisible
@@ -62,16 +113,9 @@ jQuery(document).ready(function ($) {
 
 			$('#arrow').css('top', '0px');
 			$('#arrow').css('z-index', '99999');
-			$('#arrow').css('transform', 'rotate(0deg)');
-			if (ahabArrowPos) {
-				if ('left' == ahabArrowPos) {
-					$('#arrow').css('border-radius', '0 0 4px 0');
-				}
-				if ('right' == ahabArrowPos) {
-					ArrowPosStyle = 'right: 0;';
-					$('#arrow').css('border-radius', '0 0 0 4px');
-				}
-			}
+			$('#arrow span').css('transform', 'rotate(0deg)');
+			$('#arrow').css(arrowBorderRadiusStyle(ahabArrowPos));
+			$('#arrow').css(arrowPosStyle(ahabArrowPos));
 		}
 
 		// check if page is in iframe & user is logged in - if so, customizer is active
@@ -87,7 +131,7 @@ jQuery(document).ready(function ($) {
 			var element, observerConfig, bodyObserver;
 			element = $('html');
 			// only look for attribute changes
-			observerConfig = {attributes: true};
+			observerConfig = { attributes: true };
 			bodyObserver = new MutationObserver(function (mutations) {
 				mutations.forEach(function (mutation) {
 					var newVal = $(mutation.target).prop(mutation.attributeName);
@@ -111,7 +155,6 @@ jQuery(document).ready(function ($) {
 			var ahabMobile = parseInt(ahab['ahab_mobile'], 10);
 			var ahabArrow = parseInt(ahab['ahab_arrow'], 10);
 			var ahabArrowPos = ahab['ahab_arrow_pos'];
-			var ArrowPosStyle = '';
 
 			if (windowSize > 782) {
 				$('#wpadminbar').css('top', '-32px');
@@ -130,21 +173,13 @@ jQuery(document).ready(function ($) {
 					$('body').css('margin-top', '0px');
 				}
 			}
-			// add arrow div
 
-			if (($('div#arrow').length === 0) && (2 == ahabArrow)) {
-
-				if (ahabArrowPos) {
-					if ('left' == ahabArrowPos) {
-						ArrowPosStyle = 'left: 0;';
-						ArrowBorderRadiusStyle = 'border-radius: 0 0 4px 0;';
-					}
-					if ('right' == ahabArrowPos) {
-						ArrowPosStyle = 'right: 0;';
-						ArrowBorderRadiusStyle = 'border-radius: 0 0 0 4px;';
-					}
+			/// check if toggle switch is not checked
+			if (!$('#toggle-checkbox').prop("checked")) {
+				// then add arrow div
+				if (($('div#arrow').length === 0) && (2 == ahabArrow)) {
+					$('#wpadminbar').append(addArrow(arrowPosStyle(ahabArrowPos), arrowBorderRadiusStyle(ahabArrowPos)));
 				}
-				$('body').append('<div style="cursor:pointer; padding: 4px; position:fixed; top:0; height: 20px; z-index:99999; background-color:#1d2327;' + ArrowPosStyle + ArrowBorderRadiusStyle + '" id="arrow"><span style="color:#a7aaad;" class="dashicons dashicons-arrow-down-alt"></span></div>');
 			}
 
 			if ($('#hiddendiv').length === 0) {
@@ -152,7 +187,6 @@ jQuery(document).ready(function ($) {
 			}
 
 			// hiddendiv should exist now so let's do some magic with it.
-
 			autohide = $('#hiddendiv');
 
 			autohide.css('width', '100%');
@@ -165,33 +199,42 @@ jQuery(document).ready(function ($) {
 			autohide.css('position', 'fixed');
 			autohide.css('top', '0px');
 			var configIn = {
-				over       : adminBarIn, // function = onMouseOver callback (REQUIRED)
+				over: adminBarShow, // function = onMouseOver callback (REQUIRED)
 				sensitivity: 6,
-				out        : doNothing // function = onMouseOut callback (REQUIRED)
+				out: doNothing // function = onMouseOut callback (REQUIRED)
 			};
 			var configOut = {
-				over    : doNothing, // function = onMouseOver callback (REQUIRED)
-				timeout : ahab['ahab_delay'], // number = milliseconds delay before onMouseOut
+				over: doNothing, // function = onMouseOver callback (REQUIRED)
+				timeout: ahab['ahab_delay'], // number = milliseconds delay before onMouseOut
 				interval: ahab['ahab_interval'], // number = millseconds interval for mouse polling
-				out     : adminBarOut // function = onMouseOut callback (REQUIRED)
+				out: adminBarHide // function = onMouseOut callback (REQUIRED)
 			};
 
 			// check if arrow is visible
 			if (2 == ahabArrow) {
-				$('#arrow').click(function() {
+				$('#arrow').click(function () {
 					if ($('#wpadminbar').css('top') == '0px') {
-						adminBarOut();
+						adminBarHide();
 						arrowCSSAdminBarOut();
 					} else {
-						adminBarIn();
+						adminBarShow();
 						arrowCSSAdminBarIn();
 					}
 				});
 			}
 			else {
-				// default behaviour (hover and show/hide)
-				autohide.hoverIntent(configIn);
-				$('#wpadminbar').hoverIntent(configOut);
+				if (getCookie('toggle') == "locked") {
+					// Lock the admin bar while the toggle switch is checked
+
+					$('#toggle-checkbox').prop('checked', true);
+					console.log(getCookie('toggle'));
+					adminBarShow();
+				}
+				else {
+					// default behaviour (hover and show/hide)
+					autohide.hoverIntent(configIn);
+					$('#wpadminbar').hoverIntent(configOut);
+				}
 			}
 		}
 
@@ -221,13 +264,55 @@ jQuery(document).ready(function ($) {
 		$.hotkeys.add(hotKey.join('+'), function () {
 
 			if ($('#wpadminbar').css('top') == '0px') {
-				adminBarOut()
+				adminBarHide()
 			} else {
-				adminBarIn();
+				adminBarShow();
 			}
 		});
+
+		// Set the cookie based on the toggle checkbox status
+		$('#toggle-checkbox').click(function () {
+
+			if ($(this).prop("checked")) {
+				// Toggle is checked - so lock the admin bar
+				setCookie('toggle', 'locked', 30);
+				adminBarShow();
+
+				// check if arrow visibility is set
+				if (parseInt(ahab['ahab_arrow'], 10) == 2) {
+					// remove the arrow
+					$('#arrow').remove();
+				}
+			}
+
+			if (!$(this).prop("checked")) {
+				// Toggle is unchecked - so lock the admin bar
+				setCookie('toggle', 'unlocked', 30);
+				adminBarHide();
+
+				// check if arrow visibility is set
+				if (parseInt(ahab['ahab_arrow'], 10) == 2) {
+					// add arrow div
+					if (($('div#arrow').length === 0) && (2 == ahabArrow)) {
+						$('#wpadminbar').append(addArrow(arrowPosStyle(ahabArrowPos), arrowBorderRadiusStyle(ahabArrowPos)));
+					}
+					ahadMain();
+				}
+				else {
+
+					// Restore default behaviour
+					autohide.hoverIntent(configIn);
+					$('#wpadminbar').hoverIntent(configOut);
+				}
+			}
+		});
+
+		// Lock the admin bar while the toggle is checked/locked
+		if (getCookie('toggle') == "locked") {
+			$('#toggle-checkbox').prop('checked', true);
+			adminBarShow();
+		}
 	}
 
 	$(document).ready(ahadMain);
-//	$(window).on('resize', ahadMain);
 });
